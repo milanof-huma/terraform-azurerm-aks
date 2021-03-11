@@ -110,6 +110,12 @@ variable "sku_tier" {
   default     = "Free"
 }
 
+variable "whitelist_ip_ranges_to_masters" {
+  description = "(Optional) The IP ranges to whitelist for incoming traffic to the masters."
+  type        = list(string)
+  default     = null
+}
+
 variable "enable_role_based_access_control" {
   description = "Enable Role Based Access Control."
   type        = bool

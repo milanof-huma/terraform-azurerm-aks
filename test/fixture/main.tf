@@ -38,6 +38,7 @@ module "aks" {
   enable_http_application_routing = true
   enable_azure_policy             = true
   sku_tier                        = "Paid"
+  whitelist_ip_ranges_to_masters  = ["0.0.0.0/0"]
   private_cluster_enabled         = true
   enable_auto_scaling             = true
   agents_min_count                = 1

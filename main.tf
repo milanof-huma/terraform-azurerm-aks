@@ -8,13 +8,14 @@ module "ssh-key" {
 }
 
 resource "azurerm_kubernetes_cluster" "main" {
-  name                    = "${var.prefix}-aks"
-  kubernetes_version      = var.kubernetes_version
-  location                = data.azurerm_resource_group.main.location
-  resource_group_name     = data.azurerm_resource_group.main.name
-  dns_prefix              = var.prefix
-  sku_tier                = var.sku_tier
-  private_cluster_enabled = var.private_cluster_enabled
+  name                            = "${var.prefix}-aks"
+  kubernetes_version              = var.kubernetes_version
+  location                        = data.azurerm_resource_group.main.location
+  resource_group_name             = data.azurerm_resource_group.main.name
+  dns_prefix                      = var.prefix
+  sku_tier                        = var.sku_tier
+  private_cluster_enabled         = var.private_cluster_enabled
+  api_server_authorized_ip_ranges = var.whitelist_ip_ranges_to_masters
 
   linux_profile {
     admin_username = var.admin_username
@@ -112,7 +113,7 @@ resource "azurerm_kubernetes_cluster" "main" {
     }
 
     dynamic "azure_active_directory" {
-      for_each = var.enable_role_based_access_control && ! var.rbac_aad_managed ? ["rbac"] : []
+      for_each = var.enable_role_based_access_control && !var.rbac_aad_managed ? ["rbac"] : []
       content {
         managed           = false
         client_app_id     = var.rbac_aad_client_app_id
