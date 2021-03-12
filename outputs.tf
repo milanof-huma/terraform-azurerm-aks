@@ -75,5 +75,5 @@ output "admin_password" {
 }
 
 output "outbound_ips" {
-  value = azurerm_kubernetes_cluster.main.load_balancer_profile.0.effective_outbound_ips
+  value = length(azurerm_kubernetes_cluster.main.network_profile) > 0 ? azurerm_kubernetes_cluster.main.network_profile : null
 }
