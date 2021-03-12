@@ -73,3 +73,7 @@ output "admin_username" {
 output "admin_password" {
   value = length(azurerm_kubernetes_cluster.main.kube_admin_config) > 0 ? azurerm_kubernetes_cluster.main.kube_admin_config.0.password : ""
 }
+
+output "outbound_ips" {
+  value = azurerm_kubernetes_cluster.main.load_balancer_profile.effective_outbound_ips
+}
