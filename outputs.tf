@@ -75,5 +75,5 @@ output "admin_password" {
 }
 
 output "outbound_ips" {
-  value = length(azurerm_kubernetes_cluster.main.network_profile) > 0 ? concat(azurerm_kubernetes_cluster.main.network_profile.*.load_balancer_profile, [""]) : null
+  value = length(azurerm_kubernetes_cluster.main.network_profile) > 0 ? element(concat(azurerm_kubernetes_cluster.main.network_profile.0.load_balancer_profile, [""]), 0) : null
 }
